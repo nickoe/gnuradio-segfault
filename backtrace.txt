@@ -1,0 +1,54 @@
+$ gdb --args /usr/bin/python2 -u /home/nickoe/aausat4_beacon_parser/top_block.py
+GNU gdb (GDB) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-pc-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from /usr/bin/python2...(no debugging symbols found)...done.
+(gdb) r
+Starting program: /usr/bin/python2 -u /home/nickoe/aausat4_beacon_parser/top_block.py
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+[New Thread 0x7fffcdebe700 (LWP 29839)]
+[New Thread 0x7fffcd6bd700 (LWP 29840)]
+[New Thread 0x7fffccebc700 (LWP 29841)]
+[New Thread 0x7fffbffff700 (LWP 29842)]
+[New Thread 0x7fffbf7fe700 (LWP 29843)]
+[New Thread 0x7fffbeffd700 (LWP 29844)]
+[New Thread 0x7fffbe7fc700 (LWP 29845)]
+[New Thread 0x7fffbdffb700 (LWP 29846)]
+[New Thread 0x7fffbd7fa700 (LWP 29847)]
+[New Thread 0x7fffbcff9700 (LWP 29848)]
+[New Thread 0x7fff9ffff700 (LWP 29849)]
+[New Thread 0x7fff9f7fe700 (LWP 29850)]
+[New Thread 0x7fff9effd700 (LWP 29851)]
+[New Thread 0x7fff9e7fc700 (LWP 29852)]
+[New Thread 0x7fff9dffb700 (LWP 29853)]
+[New Thread 0x7fff9d7fa700 (LWP 29854)]
+
+Thread 8 "clock_recovery_" received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x7fffbe7fc700 (LWP 29845)]
+0x00007fffde71e8b0 in volk_32f_x2_dot_prod_32f_a_sse () at /tmp/libvolk/src/volk-1.3/kernels/volk/volk_8u_x2_encodeframepolar_8u.h:81
+81	}
+(gdb) bt
+#0  0x00007fffde71e8b0 in volk_32f_x2_dot_prod_32f_a_sse () at /tmp/libvolk/src/volk-1.3/kernels/volk/volk_8u_x2_encodeframepolar_8u.h:81
+#1  0x00007fffd42735f5 in gr::filter::kernel::fir_filter_fff::filter(float const*) () from /usr/lib/libgnuradio-filter-3.7.10.so.0.0.0
+#2  0x00007fffd42821bc in gr::filter::mmse_fir_interpolator_ff::interpolate(float const*, float) const () from /usr/lib/libgnuradio-filter-3.7.10.so.0.0.0
+#3  0x00007fffd2cb7acb in ?? () from /usr/lib/libgnuradio-digital-3.7.10.so.0.0.0
+#4  0x00007fffdee7503a in gr::block_executor::run_one_iteration() () from /usr/lib/libgnuradio-runtime-3.7.10.so.0.0.0
+#5  0x00007fffdeece2d7 in gr::tpb_thread_body::tpb_thread_body(boost::shared_ptr<gr::block>, int) () from /usr/lib/libgnuradio-runtime-3.7.10.so.0.0.0
+#6  0x00007fffdeebf945 in ?? () from /usr/lib/libgnuradio-runtime-3.7.10.so.0.0.0
+#7  0x00007fffdee54c72 in ?? () from /usr/lib/libgnuradio-runtime-3.7.10.so.0.0.0
+#8  0x00007fffde209956 in ?? () from /usr/lib/libboost_thread.so.1.60.0
+#9  0x00007ffff77da484 in start_thread () from /usr/lib/libpthread.so.0
+#10 0x00007ffff75196dd in clone () from /usr/lib/libc.so.6
+(gdb) 
